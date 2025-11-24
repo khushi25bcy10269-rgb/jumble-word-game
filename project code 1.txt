@@ -1,0 +1,92 @@
+# program code written by me
+# python program for jumbled words game
+
+import random   # import random module
+
+print("Hint: All the words are terms in programming")
+
+# function for choosing random word
+def choose():
+    # list of words
+    words = ['research','priority','arguments','comment','demonstrate','variables',
+             'condition','algorithm','effectiveness','understand','problem','binary',
+             'backtracking','strategies','programming','top_down_approach','iteration',
+             'pseudo_code','statement','flowchart','commands','languages','complexity']
+    
+    # choice() randomly choose any words from the list
+    pick = random.choice(words)
+    return pick
+
+# function for shuffling characters of chosen word
+def jumble(word):
+    # sample() method shuffling the characters of the word
+    random_word = random.sample(word,len(word))
+    # join() method join the elements
+    jumbled = ''.join(random_word)
+    return jumbled
+
+# function to declare winner
+def check_win(player1,player2,p1score,p2score):
+    if p1score > p2score:
+        print("Winner is",player1)
+    elif p2score > p1score:
+        print("Winner is",player2)
+    else:
+        print("Draw... well played guys!!!")
+
+# function for showing final score
+def thank(p1n,p2n,p1,p2):
+    print(p1n,", your score is:",p1)
+    print(p2n,", your score is:",p2)
+    check_win(p1n,p2n,p1,p2)
+    print("Thank you for playing...")
+
+# function for playing the game
+def play():
+    # enter player1 and player2 name
+    p1name = input("Player1, please enter your name: ")
+    p2name = input("Player2, please enter your name: ")
+
+    # variables for counting score
+    p1 = 0
+    p2 = 0
+
+    # variable for counting turn
+    turn = 0
+
+    while True:
+        picked_word = choose()       # choose function calling
+        qn = jumble(picked_word)     # jumble function calling
+        print("Jumbled word is:", qn)
+
+        # checking turn is odd/even
+        if turn % 2 == 0:
+            # Player1 turn
+            print(p1name, ", your turn.")
+            ans = input("What is in your mind: ")
+            if ans == picked_word:
+                p1 += 1
+                print("Your score is:", p1)
+            else:
+                print("Better luck next time... correct word is:", picked_word)
+        else:
+            # Player2 turn
+            print(p2name, ", your turn.")
+            ans = input("What is in your mind: ")
+            if ans == picked_word:
+                p2 += 1
+                print("Your score is:", p2)
+            else:
+                print("Better luck next time... correct word is:", picked_word)
+
+        # continue or quit
+        c = int(input("Press 1 to continue and 0 to quit: "))
+        if c == 0:
+            thank(p1name,p2name,p1,p2)
+            break
+        
+        turn += 1
+
+# driver code
+if __name__ == "__main__":
+    play()
